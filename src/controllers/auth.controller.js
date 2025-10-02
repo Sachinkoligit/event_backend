@@ -37,9 +37,9 @@ export const signup = async (req, res) => {
     });
 
     await User.create(userId);
-    res.status(200).json(user);
+    return res.status(200).json(user);
   } catch (error) {
-    res.status(500).json(error.message);
+    return res.status(500).json(error.message);
   }
 };
 
@@ -47,15 +47,15 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
   try {
     if (!email || !password) {
-      res.status(500).json({ message: "Fill all the details" });
+      return res.status(500).json({ message: "Fill all the details" });
     }
     const user = await User.findOne({ email });
     if (!user) {
-      res.status(400).json({ message: "User Not Found" });
+      return res.status(400).json({ message: "User Not Found" });
     }
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
-      res.status(400).json({ error: "Invalid Password" });
+      return res.status(400).json({ error: "Invalid Password" });
     }
 
     //generate jwt token
@@ -69,9 +69,9 @@ export const login = async (req, res) => {
       secure: process.env.NODE_ENV !== "development",
     });
 
-    res.status(200).json(user);
+    return res.status(200).json(user);
   } catch (error) {
-    res.status(500).message(error.message);
+    return res.status(500).message(error.message);
   }
 };
 
@@ -80,9 +80,9 @@ export const logout = (req, res) => {
     res.cookie("jwt", "", {
       maxAge: 0,
     });
-    res.status(200).json({ message: "Logged out successfully" });
+    return res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
-    res.status(500).json(error.message);
+    return res.status(500).json(error.message);
   }
 };
 
@@ -101,19 +101,19 @@ export const update = async (req, res) => {
       { new: true }
     );
 
-    res.status(200).json({
+    return res.status(200).json({
       user: updatedUser,
       message: "Booked Successfully",
     });
   } catch (error) {
-    res.status(500).json(error.message);
+    return res.status(500).json(error.message);
   }
 };
 
 export const check = async (req, res) => {
   try {
-    res.status(200).json(req.user);
+    return res.status(200).json(req.user);
   } catch (error) {
-    res.status(500).json(error.message);
+    return res.status(500).json(error.message);
   }
 };

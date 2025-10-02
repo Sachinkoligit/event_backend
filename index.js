@@ -15,10 +15,14 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "event-frontend-orcin.vercel.app",
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );
+
+app.get("/", (req, res) => {
+  return res.send("Backend is live 🚀");
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/event", eventRoutes);

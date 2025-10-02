@@ -16,9 +16,9 @@ export const create = async (req, res) => {
     };
 
     await Event.create(event);
-    res.status(200).json(event);
+    return res.status(200).json(event);
   } catch (error) {
-    res.status(500).json(error.message);
+    return res.status(500).json(error.message);
   }
 };
 
@@ -45,18 +45,18 @@ export const login = async (req, res) => {
       secure: process.env.NODE_ENV !== "development",
     });
 
-    res.status(200).json({ message: "LoggedIn Successfully" });
+    return res.status(200).json({ message: "LoggedIn Successfully" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
 export const events = async (req, res) => {
   try {
     const allEvents = await Event.find(); // Fetches all documents from the 'events' collection
-    res.status(200).json(allEvents);
+    return res.status(200).json(allEvents);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
@@ -65,9 +65,9 @@ export const logout = (req, res) => {
     res.cookie("jwt", "", {
       maxAge: 0,
     });
-    res.status(200).json({ message: "Logged out successfully" });
+    return res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
-    res.status(500).json(error.message);
+    return res.status(500).json(error.message);
   }
 };
 
@@ -87,9 +87,9 @@ export const bookSeat = async (req, res) => {
     event.totalBooking -= 1;
     await event.save();
 
-    res.status(200).json({ message: "Seat booked", event });
+    return res.status(200).json({ message: "Seat booked", event });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
@@ -99,16 +99,16 @@ export const remove = async (req, res) => {
 
     const event = await Event.findByIdAndDelete(id);
 
-    res.status(200).json({ message: "deleted Successfully", event });
+    return res.status(200).json({ message: "deleted Successfully", event });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
 export const check = async (req, res) => {
   try {
-    res.status(200).json(req.user);
+    return res.status(200).json(req.user);
   } catch (error) {
-    res.status(500).json(error.message);
+    return res.status(500).json(error.message);
   }
 };
