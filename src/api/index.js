@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "event-frontend-orcin.vercel.app",
+    origin: allowedOrigins,
     credentials: true,
   })
 );
