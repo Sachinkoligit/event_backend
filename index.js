@@ -1,9 +1,9 @@
 import express from "express";
-import authRoutes from "../routes/auth.route.js";
-import eventRoutes from "../routes/event.route.js";
-import adminRoutes from "../routes/admin.route.js";
+import authRoutes from "./src/routes/auth.route.js";
+import eventRoutes from "./src/routes/event.route.js";
+import adminRoutes from "./src/routes/admin.route.js";
 import { configDotenv } from "dotenv";
-import { connect } from "../lib/db.js";
+import { connect } from "./src/lib/db.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
