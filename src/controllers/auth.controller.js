@@ -33,7 +33,8 @@ export const signup = async (req, res) => {
     res.cookie("jwt", token, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
+      secure: true,
     });
 
     await User.create(userId);
@@ -65,8 +66,8 @@ export const login = async (req, res) => {
     res.cookie("jwt", token, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
-      sameSite: "strict",
-      secure: process.env.NODE_ENV !== "development",
+      sameSite: "none",
+      secure: true,
     });
 
     return res.status(200).json(user);
